@@ -1,4 +1,4 @@
-import { Button, Form, Svg } from "boilerplate-design-system";
+import { Button, Form } from "boilerplate-design-system";
 import { waasClient } from "../../helpers/sequence";
 import { constants } from "../../constants";
 import { useUser } from "../../hooks/user-provider";
