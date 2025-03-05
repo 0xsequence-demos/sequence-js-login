@@ -12,6 +12,7 @@ export function InputPin(props: {
 
   const [pin, setPin] = useState<string>("");
   const [caret, setCaret] = useState<number | null>(null);
+  const [, setStatus] = useState<"idle" | "pending" | "complete">("idle");
   const ref = useRef<HTMLInputElement>(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -26,7 +27,8 @@ export function InputPin(props: {
         setCaret(position);
       }
       if (input.value.length >= digits) {
-        handleSubmit?.(input.value);
+        setStatus("pending");
+        // handleSubmit?.(input.value);
       }
     }
   }
@@ -119,14 +121,17 @@ export function InputPin(props: {
   }
 
   return (
-    <div className="flex gap-2 relative" aria-hidden>
+    <div
+      className="grid grid-cols-6 gap-2 relative w-full max-w-[20rem]"
+      aria-hidden
+    >
       {Array.from({ length: digits }).map((_, index) => (
         <button
           key={`digit-${index}`}
           type="button"
           data-index={index}
-          className={`w-[3.25rem] h-[4rem] border rounded-[0.5rem] bg-white/10 text-24 font-bold ${
-            caret === index ? "border-white bg-white/25" : "border-white/10"
+          className={`flex-1 aspect-[1/1.2] border rounded-[0.5rem] bg-white/10 text-20 md:text-24 font-bold ${
+            caret === index ? "border-white bg-white/25" : "border-white/0"
           }`}
           onClick={selectCharacter}
           tabIndex={-1}
@@ -141,7 +146,7 @@ export function InputPin(props: {
         type="text"
         value={pin}
         autoCapitalize="off"
-        autoComplete="off"
+        autoComplete="one-time-code"
         data-1p-ignore
         data-lpignore
         data-input-otp

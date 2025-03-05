@@ -1,17 +1,27 @@
 import { createContext, useContext, useState } from "react";
+import { waasClient } from "../helpers/sequence";
+import type { EmailConflictInfo } from "@0xsequence/waas";
+
+type ErrorState = { type: "email-conflict"; data: EmailConflictInfo } | false; // No error state
 
 export type UserContextValues = {
   wallet?: `0x${string}`;
-  status: "idle" | "pending" | "connected" | "error";
-  method?: "email" | "guest";
+  status: "idle" | "pending" | "connected" | "otp" | "error";
+  error: ErrorState;
+  method?: "apple" | "google" | "email" | "guest";
   set: {
     wallet: React.Dispatch<React.SetStateAction<`0x${string}` | undefined>>;
     status: React.Dispatch<
-      React.SetStateAction<"idle" | "pending" | "error" | "connected">
+      React.SetStateAction<"idle" | "pending" | "error" | "otp" | "connected">
     >;
-    method: React.Dispatch<React.SetStateAction<"email" | "guest" | undefined>>;
+    error: React.Dispatch<React.SetStateAction<ErrorState>>;
+    method: React.Dispatch<
+      React.SetStateAction<"apple" | "google" | "email" | "guest" | undefined>
+    >;
   };
+  signOut: () => void;
   reset: () => void;
+  cancel: () => void;
 };
 
 const UserContext = createContext<null | UserContextValues>(null);
@@ -20,23 +30,47 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [wallet, setWallet] = useState<UserContextValues["wallet"]>();
   const [status, setStatus] = useState<UserContextValues["status"]>("idle");
   const [method, setMethod] = useState<UserContextValues["method"]>();
+  const [error, setError] = useState<UserContextValues["error"]>(false);
+  const [isAuth] = useState<boolean>(false);
+  //setAuthenticated
+  // console.log(
+  //   waasClient
+  //     .isSignedIn()
+  //     .then((res) => setAuthenticated(res))
+  //     .catch((err) => console.log(err)),
+  // );
 
-  function reset() {
+  async function cancel(error: UserContextValues["error"] = false) {
+    setError(error);
     setWallet(undefined);
     setStatus("idle");
     setMethod(undefined);
   }
 
+  async function reset() {
+    cancel();
+    signOut();
+  }
+
+  async function signOut() {
+    await waasClient.dropSession();
+  }
+
   const value = {
+    isAuth,
     wallet,
     status,
     method,
+    error,
     set: {
       wallet: setWallet,
       status: setStatus,
       method: setMethod,
+      error: setError,
     },
+    signOut,
     reset,
+    cancel,
   } as UserContextValues;
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
