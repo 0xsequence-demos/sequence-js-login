@@ -27,7 +27,7 @@ export function App() {
   return (
     <div className="grid grid-cols-1 grid-rows-1 my-auto w-full items-center justify-items-center">
       <Transition show={!!wallet}>
-        <div className="transition ease-in-out data-[closed]:opacity-0 data-[closed]:translate-y-32 data-[closed]:blur-xl data-[closed]:scale-110 duration-200 col-start-1 row-start-1 flex flex-col items-center w-full gap-8 max-w-[512px] mx-auto">
+        <div className="transition ease-in-out data-[closed]:opacity-0 data-[closed]:translate-y-32 data-[closed]:blur-xl data-[closed]:scale-110 duration-200 col-start-1 row-start-1 flex flex-col items-center w-full gap-8 max-w-[560px] mx-auto px-6">
           <Connected />
         </div>
       </Transition>
