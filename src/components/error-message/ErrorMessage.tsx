@@ -62,16 +62,17 @@ export function ErrorMessage({
 
   return (
     <div className="flex flex-col items-center w-full gap-4">
-      <span className="text-18 font-bold flex items-center gap-3 w-full">
-        <span className="flex items-center justify-center size-9 rounded-full bg-amber-300 text-amber-950">
+      <span className="text-17 font-bold flex items-center gap-3 w-full leading-tight">
+        <span className="flex items-center justify-center size-9 rounded-full bg-amber-300 text-amber-950 flex-shrink-0">
           <TriangleAlert size={24} className="mb-[3px]" />
         </span>{" "}
-        Email already in use
+        A account at this address already set up with {label}
       </span>
 
       <p>
         It looks like you've previously signed using this email address (
-        {error.data.email}) with another login method.
+        <span className="text-amber-300">{error.data.email}</span>) with another
+        login method.
       </p>
 
       <p>

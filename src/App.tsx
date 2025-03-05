@@ -100,17 +100,15 @@ export function App() {
 
             <ErrorMessage setCallback={setEmailChallengeCallback} />
 
-            {status !== "error" ? (
-              <>
-                <div className="flex flex-col gap-3">
-                  <LoginGoogle />
-                  <LoginApple />
-                </div>
+            <Transition show={status !== "error"}>
+              <div className="flex flex-col gap-3">
+                <LoginGoogle />
+                <LoginApple />
+              </div>
 
-                <hr className="opacity-10" />
-                <LoginEmail setCallback={setEmailChallengeCallback} />
-              </>
-            ) : null}
+              <hr className="opacity-10" />
+              <LoginEmail setCallback={setEmailChallengeCallback} />
+            </Transition>
           </div>
           {status !== "error" ? <LoginGuest /> : null}
         </div>
