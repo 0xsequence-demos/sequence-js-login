@@ -15,7 +15,7 @@
     "@headlessui/react": "^2.2.0",
     "@react-oauth/google": "^0.12.1",
     "@tailwindcss/vite": "^4.0.3",
-    "boilerplate-design-system": "file:../boilerplate-design-system",
+    "boilerplate-design-system": "github:0xsequence-demos/boilerplate-design-system#9fa4d02acf952b80c6e2a9c341673b9dec5800c0",
     "clsx": "^2.1.1",
     "ethers": "^6.13.5",
     "lucide-react": "^0.477.0",
