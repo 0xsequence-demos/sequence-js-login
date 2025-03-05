@@ -37,7 +37,7 @@ export function LoginGoogle() {
         <div className="bg-gradient-to-br from-white to-white/85 text-neutral-950 font-medium py-3 px-4 rounded-[0.5rem] flex gap-3 relative overflow-clip isolate justify-center items-center hover:opacity-80 transition-opacity">
           <img src="/auth/google.svg" width="20" height="20" />
           Continue with Google
-          <div className="scale-[6] absolute inset-0 size-full flex items-center justify-center z-50 opacity-0">
+          <div className="scale-[6] absolute inset-0 size-full flex items-center justify-center z-50 opacity-[0.000001]">
             <GoogleLogin
               key="google"
               ux_mode="popup"
