@@ -13,7 +13,7 @@ export function InputPin(props: {
 
   const [pin, setPin] = useState<string>("");
   const [caret, setCaret] = useState<number | null>(null);
-  const [, setStatus] = useState<"idle" | "pending" | "complete">("idle");
+  // const [status, setStatus] = useState<"idle" | "pending" | "complete">("idle");
   const ref = useRef<HTMLInputElement>(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -28,8 +28,8 @@ export function InputPin(props: {
         setCaret(position);
       }
       if (input.value.length >= digits) {
-        setStatus("pending");
-        // handleSubmit?.(input.value);
+        // setStatus("pending");
+        handleSubmit?.(input.value);
       }
     }
   }
@@ -111,7 +111,7 @@ export function InputPin(props: {
       : 0;
     if (input) {
       input.focus();
-      input.setSelectionRange(index, index + 1);
+      input.setSelectionRange(index, index + input.value.length);
 
       if (index > input.value.length) {
         setCaret(input.value.length);
