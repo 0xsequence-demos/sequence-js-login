@@ -15,8 +15,6 @@ export function LoginEmailChallenge({
     await callback?.(value);
   }
 
-  if (!callback) return null;
-
   return (
     <>
       <div className="w-full max-w-[32rem] mx-auto  p-6 flex flex-col gap-6 ">
@@ -29,7 +27,7 @@ export function LoginEmailChallenge({
           className="text-center flex flex-col items-center justify-center gap-2"
         >
           <Label>PIN</Label>
-          <InputPin handleSubmit={handleSubmitChallenge} />
+          <InputPin handleSubmit={handleSubmitChallenge} disabled={!callback} />
         </Field>
       </div>
       <Button

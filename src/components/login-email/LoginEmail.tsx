@@ -1,10 +1,10 @@
-import { Field, Form, Input, Label } from "boilerplate-design-system";
+import { Field, Form, Input, Label, useForm } from "boilerplate-design-system";
 import { useUser } from "../../hooks/user-provider";
 import { useState } from "react";
 import { waasClient } from "../../helpers/sequence";
 import { constants } from "../../constants";
 import { z } from "zod";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, TriangleAlert } from "lucide-react";
 
 const emailLogin = z.object({
   email: z.string().email(),
@@ -80,6 +80,33 @@ export function LoginEmail({
           <ArrowRight size={20} /> <span className="sr-only">Submit</span>
         </button>
       </Field>
+      <ProxyFieldError name="email" />
     </Form>
+  );
+}
+
+function ProxyFieldError({ name }: { name: string }) {
+  const form = useForm();
+  const hasError = !!form?.errors?.fieldErrors?.[name];
+
+  return (
+    <>
+      <div
+        className="grid grid-rows-[0fr] data-[error='true']:grid-rows-[1fr] transition-all"
+        data-error={hasError}
+      >
+        <div
+          className="rounded-md overflow-hidden min-h-0 opacity-0 data-[error='true']:opacity-100 -translate-y-2 data-[error='true']:translate-y-0 transition-all h-fit"
+          data-error={hasError}
+          /* @ts-expect-error inert not recognized */
+          inert={hasError ? undefined : "inert"}
+        >
+          <div className="py-3 flex gap-2 items-center justify-center text-15">
+            <TriangleAlert size={20} />
+            Please enter your email address
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
