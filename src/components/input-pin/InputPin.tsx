@@ -1,5 +1,5 @@
 import { useField } from "boilerplate-design-system";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function InputPin(props: {
   id?: string;
@@ -120,6 +120,13 @@ export function InputPin(props: {
       }
     }
   }
+
+  useEffect(() => {
+    const input = ref.current;
+    if (input && !disabled) {
+      input.focus();
+    }
+  }, [disabled]);
 
   return (
     <div className="relative w-full max-w-[20rem]">
